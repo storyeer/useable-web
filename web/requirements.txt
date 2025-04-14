@@ -1,0 +1,7 @@
+flask>=2.0.1
+jinja2>=3.0.1
+werkzeug>=2.0.1
+requests>=2.31.0
+transformers>=4.37.0
+accelerate>=0.26.0
+torch>=2.1.0 

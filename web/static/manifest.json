@@ -1,0 +1,16 @@
+{
+  "name": "审究 AI",
+  "short_name": "审究",
+  "description": "让审计更智能，让工作更高效",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a6cf7",
+  "icons": [
+    {
+      "src": "/static/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+} 
