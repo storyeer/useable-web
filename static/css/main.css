@@ -1,0 +1,247 @@
+/* 用户头像区域样式 */
+.user-area {
+    position: relative;
+    margin-top: auto;
+    padding: 15px;
+}
+
+.user-avatar, .login-avatar {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.user-avatar:hover, .login-avatar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-avatar i {
+    font-size: 24px;
+    color: #4285F4;
+}
+
+/* 用户菜单 */
+.user-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 150px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    margin-bottom: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.user-avatar:hover .user-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-menu:before {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 20px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    transform: rotate(45deg);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.user-menu a {
+    display: block;
+    padding: 8px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.user-menu a:hover {
+    background: #f5f8ff;
+}
+
+.user-menu a.logout-link {
+    color: #e53935;
+    border-top: 1px solid #eee;
+    margin-top: 5px;
+}
+
+/* 主页样式优化 */
+.home-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.welcome-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.welcome-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+}
+
+.welcome-header h1 {
+    color: #1a73e8;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.welcome-desc {
+    color: #5f6368;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.questions-section {
+    margin-bottom: 60px;
+}
+
+.questions-section h2 {
+    text-align: center;
+    color: #202124;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e8f0fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.feature-icon i {
+    color: #1a73e8;
+    font-size: 22px;
+}
+
+.feature-text h3 {
+    color: #202124;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.feature-text p {
+    color: #5f6368;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 全局配色方案 */
+:root {
+  --primary: #4285f4;
+  --primary-light: #e3f2fd;
+  --primary-dark: #1a73e8;
+  --accent: #5bb974;
+  --background: #f8f9fa;
+  --surface: #ffffff;
+  --error: #ea4335;
+  --text-primary: #202124;
+  --text-secondary: #5f6368;
+  --border: #dadce0;
+}
+
+/* 背景渐变 */
+html, body {
+  background: linear-gradient(135deg, #e8f3ff 0%, #ffffff 100%) !important;
+  min-height: 100vh;
+}
+
+/* 按钮样式统一 */
+.btn-primary, 
+.login-btn, 
+button[type="submit"],
+.floating-send-btn {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover, 
+.login-btn:hover, 
+button[type="submit"]:hover,
+.floating-send-btn:hover {
+  background-color: var(--primary-dark) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(26, 115, 232, 0.2) !important;
+}
+
+/* 导航栏圆角 */
+.vertical-nav {
+  border-radius: 0 20px 20px 0 !important;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.05) !important;
+  background-color: white !important;
+}
+
+/* 卡片和容器圆角 */
+.card, 
+.chat-container, 
+.question-card,
+.floating-input-container,
+.footer-features-section {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+} 

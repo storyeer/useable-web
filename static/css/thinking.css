@@ -1,0 +1,41 @@
+/* 思考动画容器 */
+.thinking-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(66, 133, 244, 0.1);
+    border-radius: 12px;
+    margin: 10px 0;
+}
+
+/* 思考中的点动画 */
+.thinking-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #4285f4;
+    border-radius: 50%;
+    animation: thinking 1.4s infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes thinking {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+} 

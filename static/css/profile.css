@@ -1,0 +1,322 @@
+/* 个人资料页面样式 */
+.profile-content {
+    position: fixed;
+    top: 0;
+    left: 60px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background-color: #f9f9fb;
+    padding: 30px;
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-header h1 {
+    font-size: 24px;
+    color: var(--primary);
+    margin: 0;
+}
+
+.profile-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-right: 20px;
+}
+
+.profile-details h2 {
+    margin: 0 0 5px 0;
+    font-size: 20px;
+}
+
+.profile-details p {
+    margin: 0 0 5px 0;
+    color: #666;
+}
+
+.profile-role {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.profile-stats {
+    display: flex;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.settings-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.settings-card h3 {
+    font-size: 16px;
+    margin: 0 0 15px 0;
+    color: #444;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.primary-btn {
+    background-color: var(--primary);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.toggle-group {
+    margin-bottom: 20px;
+}
+
+.toggle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.danger-zone {
+    background-color: #fff8f8;
+    border: 1px solid #ffebeb;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.danger-zone h2 {
+    color: #d32f2f;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.danger-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.danger-btn {
+    background-color: #f5f5f5;
+    color: #d32f2f;
+    border: 1px solid #ddd;
+}
+
+.danger-btn:hover {
+    background-color: #ffebeb;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .profile-content {
+        padding: 15px;
+    }
+    
+    .profile-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .profile-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+    
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .danger-actions {
+        flex-direction: column;
+    }
+}
+
+/* 添加错误卡片样式 */
+.error-card {
+    background-color: #fff8f8;
+    border: 1px solid #ffebeb;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.error-card i {
+    font-size: 48px;
+    color: #d32f2f;
+    margin-bottom: 20px;
+}
+
+.error-card h2 {
+    color: #d32f2f;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.error-card p {
+    color: #666;
+    font-size: 16px;
+}
+
+.error-card a {
+    color: var(--primary);
+    text-decoration: underline;
+} 

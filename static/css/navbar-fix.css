@@ -1,0 +1,750 @@
+/* 专用导航栏样式 - 解决重复和样式冲突问题 */
+.vertical-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 1px 0 5px rgba(66, 133, 244, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+/* 展开导航栏的样式 - 使用单独的类而不是悬停 */
+.vertical-nav.expanded {
+    width: 180px;
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* 确保没有hover相关样式 */
+/* 导航内容区域 */
+.nav-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 12px 0;
+}
+
+/* 导航顶部和底部分组 */
+.nav-top {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.nav-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+    margin-bottom: 16px;
+}
+
+/* 导航项通用样式 */
+.nav-item {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    position: relative;
+    margin: 4px 0;
+    border-radius: 0;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.vertical-nav.expanded .nav-item {
+    justify-content: flex-start;
+    padding: 0 16px;
+}
+
+/* 图标通用样式 */
+.nav-item i {
+    width: 24px;
+    font-size: 16px;
+    text-align: center;
+    margin-right: 0;
+    flex-shrink: 0;
+}
+
+.vertical-nav.expanded .nav-item i {
+    margin-right: 12px;
+}
+
+/* 导航文本默认隐藏 */
+.nav-text {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    color: #666;
+    display: none;
+}
+
+/* 展开时显示文本 */
+.vertical-nav.expanded .nav-text {
+    opacity: 1;
+    transform: translateX(0);
+    display: block;
+}
+
+/* 恢复导航项的悬停效果 */
+.nav-item:hover {
+    background: rgba(66, 133, 244, 0.08);
+    color: #4285f4;
+}
+
+/* 激活状态 */
+.nav-item.active {
+    background: rgba(66, 133, 244, 0.1);
+    color: #4285f4;
+}
+
+/* 内容区域不被导航栏覆盖 */
+.content-area {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    padding-left: 60px;
+    margin-left: 0;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.05));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 当导航栏展开时，内容区域随之调整 */
+.vertical-nav.expanded + .content-area {
+    padding-left: 180px;
+}
+
+/* 确保内容区域在导航栏展开时也能正确显示 */
+.home-content,
+.chat-container,
+.profile-content,
+.contact-content {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    .vertical-nav {
+        transform: translateX(-100%);
+    }
+    
+    .vertical-nav.visible {
+        transform: translateX(0);
+    }
+    
+    .content-area {
+        padding-left: 0;
+    }
+}
+
+/* 展开/收起按钮样式 */
+.nav-toggle-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(66, 133, 244, 0.1);
+    color: #4285f4;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 12px auto 16px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-toggle-btn:hover {
+    background: rgba(66, 133, 244, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-toggle-btn i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.vertical-nav.expanded .nav-toggle-btn i {
+    transform: rotate(180deg);
+}
+
+/* 历史侧边栏位置调整 */
+.vertical-nav.expanded ~ .history-sidebar.active {
+    left: 180px;
+}
+
+/* 历史记录侧边栏样式 */
+.history-sidebar {
+    position: fixed;
+    left: 60px;  /* 默认对齐收起状态的导航栏 */
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease, left 0.3s ease;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    will-change: transform;
+}
+
+.history-sidebar.active {
+    transform: translateX(0);
+}
+
+/* 历史记录遮罩层 */
+.history-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* 默认不接收鼠标事件 */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 98;
+}
+
+.history-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* 仅在激活状态接收鼠标事件 */
+}
+
+/* 历史记录头部样式 */
+.history-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95));
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.history-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.history-close {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.history-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+}
+
+/* 历史记录内容区域 */
+.history-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    .history-sidebar {
+        width: 80%;
+        max-width: 300px;
+        left: 0;
+    }
+    
+    .history-sidebar.active {
+        transform: translateX(0);
+    }
+}
+
+/* 错误和加载状态的样式 */
+.error-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 80%;
+}
+
+.error-message i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.error-message p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.error-actions button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.error-actions button:hover {
+    background-color: #2980b9;
+}
+
+.loading-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #3498db;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
+.loading-message i {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.empty-conversation {
+    text-align: center;
+    padding: 40px 20px;
+    color: #7f8c8d;
+    margin: 20px auto;
+}
+
+.empty-conversation i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.empty-conversation p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* 历史记录项样式优化 */
+.history-item {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+    will-change: transform, background-color;
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.history-title {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* 历史按钮特殊效果 */
+#nav-history {
+    position: relative;
+    overflow: hidden;
+}
+
+#nav-history:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.2) 0%, rgba(66, 133, 244, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+#nav-history:hover:after {
+    opacity: 1;
+}
+
+/* 历史按钮点击效果 */
+#nav-history:active {
+    transform: scale(0.95);
+}
+
+/* 历史记录列表优化 */
+.history-list {
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+    padding: 12px;
+    min-height: 200px;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* 空历史记录状态优化 */
+.no-history {
+    padding: 40px 20px;
+    text-align: center;
+    color: #888;
+}
+
+.no-history i {
+    font-size: 36px;
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+/* 增强导航项的可点击区域和视觉反馈 */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #4285f4;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+    transform: scaleX(1);
+}
+
+/* 确保展开按钮的交互效果 */
+.nav-toggle-btn {
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-toggle-btn:hover {
+    transform: scale(1.1);
+    background-color: rgba(66, 133, 244, 0.2);
+}
+
+.nav-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+/* 修复导航展开状态中的图标旋转 */
+.nav-toggle-btn i {
+    transition: transform 0.3s ease;
+}
+
+.vertical-nav.expanded .nav-toggle-btn i {
+    transform: rotate(180deg);
+}
+
+/* 历史记录搜索框 */
+.history-search-container {
+    position: relative;
+    margin: 0 0 15px 0;
+}
+
+.history-search {
+    width: 100%;
+    padding: 8px 12px 8px 32px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.history-search:focus {
+    border-color: #4285f4;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 14px;
+}
+
+/* 历史记录项容器 */
+.history-items-container {
+    margin-top: 10px;
+}
+
+/* 删除动画和状态 */
+.history-item {
+    transition: all 0.3s ease;
+    transform-origin: center;
+    position: relative;
+}
+
+.history-item.deleting {
+    opacity: 0.7;
+}
+
+.delete-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: #e74c3c;
+    font-size: 14px;
+}
+
+.delete-overlay i {
+    margin-right: 8px;
+    color: #e74c3c;
+}
+
+/* 无历史记录时的子文本 */
+.no-history .sub-text {
+    font-size: 14px;
+    color: #999;
+    margin-top: 5px;
+}
+
+/* 添加对话消息样式 */
+.chat-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 90%;
+}
+
+.user-message {
+    background-color: #f0f7ff;
+    margin-left: auto;
+    margin-right: 0;
+    border: 1px solid #d0e3ff;
+}
+
+.assistant-message {
+    background-color: #f7f7f7;
+    margin-left: 0;
+    margin-right: auto;
+    border: 1px solid #e6e6e6;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+.message-role {
+    font-weight: bold;
+}
+
+.message-time {
+    opacity: 0.8;
+}
+
+.message-content {
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.message-content p {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.loading-message {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.loading-message i {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: block;
+    color: #3498db;
+}
+
+.error-message {
+    text-align: center;
+    padding: 40px;
+    color: #e74c3c;
+    background-color: #fde9e8;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.error-message i {
+    font-size: 40px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.error-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.error-actions button {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.error-actions button:hover {
+    background-color: #2980b9;
+}
+
+.no-messages {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.no-messages i {
+    font-size: 40px;
+    margin-bottom: 15px;
+    display: block;
+    color: #95a5a6;
+}
+
+.no-messages button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 代码块样式 */
+.message-content pre {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    margin: 10px 0;
+}
+
+.message-content code {
+    font-family: 'Courier New', monospace;
+    background-color: rgba(0,0,0,0.05);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .message {
+        max-width: 95%;
+    }
+    
+    .chat-container {
+        padding: 10px;
+    }
+} 

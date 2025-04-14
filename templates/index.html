@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}审究AI - 让审计更智能，让工作更高效{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/chat.css?v={{ resource_version }}">
+<link rel="stylesheet" href="/static/css/thinking.css?v={{ resource_version }}">
+{% endblock %}
+
+{% block content %}
+<div class="home-content" id="home-content">
+    <div class="title-area" id="title-area">
+        <h1>审究 AI</h1>
+        <p>让审计更智能，让工作更高效</p>
+    </div>
+
+    <div class="chat-messages" id="chat-messages">
+        <!-- 消息内容会动态添加到这里 -->
+    </div>
+
+    <div class="bottom-container">
+        <div class="new-chat-bubble" id="new-chat-wrapper" style="display: none;">
+            <button class="new-chat-btn" id="new-chat-btn" title="开始新对话">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        
+        <div class="chat-input-area">
+            <textarea 
+                id="chat-input"
+                class="chat-input" 
+                placeholder="请输入您想要了解的内容..."
+                rows="1"
+            ></textarea>
+            
+            <div class="input-toolbar">
+                <div class="input-buttons">
+                    <button class="tool-btn" id="think-btn" title="深度思考">
+                        <i class="fas fa-brain"></i>
+                    </button>
+                    <button class="tool-btn" id="search-btn" title="联网搜索">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                </div>
+                
+                <div class="send-button-container">
+                    <button class="send-btn" id="send-btn" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/chat-manager.js?v={{ resource_version }}"></script>
+{% endblock %}

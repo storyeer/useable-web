@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% block title %}登录 - 审究AI{% endblock %}
+
+{% block extra_css %}
+<style>
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: transparent;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+}
+
+.login-box:hover {
+    transform: translateY(-5px);
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.form-group label {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: 12px 36px 12px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.form-group input:focus {
+    border-color: rgba(74, 108, 247, 0.5);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+}
+
+.form-group i {
+    position: absolute;
+    right: 12px;
+    top: 38px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.form-group i:hover {
+    color: #4a6cf7;
+}
+
+.login-btn {
+    background: rgba(74, 108, 247, 0.9);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.login-btn:hover {
+    background: rgba(74, 108, 247, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 108, 247, 0.2);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.login-footer a {
+    color: #4a6cf7;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.login-footer a:hover {
+    color: #3857d6;
+    text-decoration: underline;
+}
+
+.error-message {
+    display: none;
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.error-message.show {
+    display: block;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.success-message {
+    display: none;
+    color: #28a745;
+    background: rgba(40, 167, 69, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.success-message.show {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <h2 class="login-title">登录审究AI</h2>
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" required placeholder="请输入用户名">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" required placeholder="请输入密码">
+                <i class="fas fa-lock"></i>
+            </div>
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> 登录
+            </button>
+        </form>
+        <div class="login-footer">
+            <a href="/register">还没有账号？立即注册</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function showError(message) {
+    const errorDiv = document.getElementById('errorMessage');
+    const successDiv = document.getElementById('successMessage');
+    errorDiv.textContent = message;
+    errorDiv.classList.add('show');
+    successDiv.classList.remove('show');
+}
+
+function showSuccess(message) {
+    const errorDiv = document.getElementById('errorMessage');
+    const successDiv = document.getElementById('successMessage');
+    successDiv.textContent = message;
+    successDiv.classList.add('show');
+    errorDiv.classList.remove('show');
+}
+
+function hideMessages() {
+    document.getElementById('errorMessage').classList.remove('show');
+    document.getElementById('successMessage').classList.remove('show');
+}
+
+function validateForm(username, password) {
+    if (!username || !password) {
+        showError('请填写所有必填项');
+        return false;
+    }
+    return true;
+}
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideMessages();
+    
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    
+    if (!validateForm(username, password)) {
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            // 保存token和用户信息
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            showSuccess('登录成功！正在跳转...');
+            document.querySelector('.login-box').style.transform = 'scale(0.95)';
+            
+            // 更新导航栏
+            if (typeof window.updateUserNavItem === 'function') {
+                window.updateUserNavItem();
+            }
+            
+            // 延迟跳转
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1500);
+        } else {
+            showError(data.message || '登录失败，请稍后重试');
+        }
+    } catch (error) {
+        console.error('登录请求错误:', error);
+        showError('网络错误，请稍后重试');
+    }
+});
+
+// 输入框获得焦点时隐藏错误信息
+document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('focus', hideMessages);
+});
+
+// 添加密码可见性切换功能
+document.querySelector('.fa-lock').addEventListener('click', function() {
+    const passwordInput = document.getElementById('password');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        this.classList.remove('fa-lock');
+        this.classList.add('fa-lock-open');
+    } else {
+        passwordInput.type = 'password';
+        this.classList.remove('fa-lock-open');
+        this.classList.add('fa-lock');
+    }
+});
+</script>
+{% endblock %} 
